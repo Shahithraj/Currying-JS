@@ -67,3 +67,22 @@ function updateElement(element) {
 updateElement(head)('Hello Raj');
 
 //  convert f(a,b,c) to f(a)(b)(c)
+
+function curry(func) {
+  return function curriedFunction(...args) {
+    if (args.length >= func.length) {
+      console.log(func);
+      return func(...args); // this will have sum1 a+b+c+d
+    } else {
+      return function (next) {
+        return curriedFunction(...args, next);
+      };
+    }
+  };
+}
+
+const sum1 = (a, b, c, d) => a + b + c + d; // this will convert to sum(a)(b)(c)(d)
+
+const totalSum = curry(sum1);
+
+console.log(totalSum(1)(6)(3)(2));
