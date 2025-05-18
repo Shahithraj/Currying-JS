@@ -16,6 +16,32 @@ function sum(a) {
 
 console.log(sum(1)(2)(3));
 
+// correct approach for Q1
+
+function sumCurry(a) {
+  return function (b) {
+    if (b) return sumCurry(a + b);
+    return a;
+  };
+}
+
+function sumCurry(val) {
+    let count = 0;
+    count += val;
+    if(!val) return count;
+    return function inner (val) {
+        if(!val) return count;
+        else {
+            count += val;
+            return inner;
+        }
+        
+    }
+    
+}
+
+console.log(sumCurry(1)(2)(3)());
+
 // 2. operator + operation
 
 function evaluate(operator) {
@@ -33,16 +59,7 @@ function evaluate(operator) {
 const oper = evaluate('mul');
 console.log(oper(2)(3));
 
-// correct approach for Q1
 
-function sumCurry(a) {
-  return function (b) {
-    if (b) return sumCurry(a + b);
-    return a;
-  };
-}
-
-console.log(sumCurry(1)(2)(3)());
 
 // Partial application => No. of argument != No. of function
 
